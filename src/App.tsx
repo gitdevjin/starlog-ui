@@ -11,12 +11,6 @@ function App() {
   return (
     <>
       <Router />
-      <div className="flex flex-row font-bold underline">
-        Welcom to Starlog
-        <div>
-          <Button onClick={onClickButton}>Button!</Button>
-        </div>
-      </div>
     </>
   );
 }
