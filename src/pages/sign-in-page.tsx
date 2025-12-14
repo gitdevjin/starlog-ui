@@ -9,7 +9,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 sm:px-12 sm:py-6">
       <div className="text-xl font-bold">Sign-In Page</div>
       <div className="flex flex-col gap-2">
         <Input

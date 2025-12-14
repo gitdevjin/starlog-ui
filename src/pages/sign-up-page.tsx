@@ -1,23 +1,42 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSignUp } from "@/hooks/mutations/auth/use-sign-up";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const { mutate: signUp, isPending: isSignUpPending } = useSignUp({
+    onSuccess: () => {
+      toast.info("Sign Up Successful!", {
+        position: "top-center",
+      });
+      navigate("/sign-in");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message, {
+        position: "top-center",
+      });
+    },
+  });
 
   const handleSignUpClick = () => {
     if (email.trim() === "") return;
     if (password.trim() === "") return;
+
+    signUp({ email, password });
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 sm:px-12 sm:py-6">
       <div className="text-xl font-bold">Sign-Up Page</div>
       <div className="flex flex-col gap-2">
         <Input
-          //   disabled={isPendingSignUp}
+          disabled={isSignUpPending}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="py-6"
@@ -25,7 +44,7 @@ export default function SignUpPage() {
           placeholder="example@abcd.com"
         />
         <Input
-          //   disabled={isPendingSignUp}
+          disabled={isSignUpPending}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="py-6"
@@ -35,7 +54,7 @@ export default function SignUpPage() {
       </div>
       <div>
         <Button
-          //   disabled={isPendingSignUp}
+          disabled={isSignUpPending}
           onClick={handleSignUpClick}
           className="w-full"
         >
