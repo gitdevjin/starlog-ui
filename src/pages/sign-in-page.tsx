@@ -1,19 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import gitHubLogo from "@/assets/github-mark.svg";
+import { useSignInWithEmail } from "@/hooks/mutations/auth/use-sign-in-with-email";
+import { toast } from "sonner";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const { mutate: signInWithEmail, isPending: isSignInWithEmailPending } =
+    useSignInWithEmail({
+      onSuccess: () => {
+        toast.info("Login Success", {
+          position: "top-center",
+        });
+        navigate("/");
+      },
+      onError: (error) => {
+        toast.error(error.message, {
+          position: "top-center",
+        });
+      },
+    });
+
+  const handleSignIn = () => {
+    signInWithEmail({ email, password });
+  };
 
   return (
     <div className="flex flex-col gap-8 sm:px-12 sm:py-6">
       <div className="text-xl font-bold">Sign-In Page</div>
       <div className="flex flex-col gap-2">
         <Input
-          //   disabled={isPending}
+          disabled={isSignInWithEmailPending}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="py-6"
@@ -21,7 +43,7 @@ export default function SignInPage() {
           placeholder="example@abcd.com"
         />
         <Input
-          //   disabled={isPending}
+          disabled={isSignInWithEmailPending}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="py-6"
@@ -31,15 +53,15 @@ export default function SignInPage() {
       </div>
       <div className="flex flex-col gap-2">
         <Button
-          //   disabled={isPending}
-          //   onClick={handleSignInWithPwdClick}
+          disabled={isSignInWithEmailPending}
+          onClick={handleSignIn}
           className="w-full"
         >
           Sign-In
         </Button>
         <Button
-          //   disabled={isPending}
-          //   onClick={handleSignInWithGithubClick}
+          disabled={isSignInWithEmailPending}
+          onClick={handleSignIn}
           className="w-full"
           variant={"outline"}
         >

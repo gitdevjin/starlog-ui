@@ -3,17 +3,24 @@ import GlobalLayout from "./components/layout/global-layout";
 import IndexPage from "./pages/index-page";
 import SignInPage from "./pages/sign-in-page";
 import SignUpPage from "./pages/sign-up-page";
+import GuestOnlyLayout from "./components/layout/guest-only-layout";
+import MemberOnlyLayout from "./components/layout/member-only-layout";
 
 export default function Router() {
   return (
     <Routes>
       <Route element={<GlobalLayout />}>
-        <Route path={"/"} element={<IndexPage />} />
-        <Route path="/sign-in" element={<SignInPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path={"/temp"} element={<div>tempt</div>} />
-        <Route path={"/about"} element={<div>about</div>} />
-        <Route path={"/random"} element={<div>random</div>} />
+        <Route element={<GuestOnlyLayout />}>
+          <Route path={"/"} element={<IndexPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+        </Route>
+
+        <Route element={<MemberOnlyLayout />}>
+          <Route path={"/temp"} element={<div>tempt</div>} />
+          <Route path={"/about"} element={<div>about</div>} />
+          <Route path={"/random"} element={<div>random</div>} />
+        </Route>
       </Route>
     </Routes>
   );
