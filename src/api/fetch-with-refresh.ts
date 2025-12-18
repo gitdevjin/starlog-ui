@@ -15,7 +15,8 @@ export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
         });
 
         if (!refreshRes.ok) {
-          window.location.href = "/auth/login"; // redirect if refresh fails
+          refreshing = null;
+          throw new Error("Refresh token expired"); // don’t redirect here
         }
       })();
     }

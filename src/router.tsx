@@ -11,12 +11,12 @@ export default function Router() {
     <Routes>
       <Route element={<GlobalLayout />}>
         <Route element={<GuestOnlyLayout />}>
-          <Route path={"/"} element={<IndexPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
         </Route>
 
         <Route element={<MemberOnlyLayout />}>
+          <Route path={"/"} element={<IndexPage />} />
           <Route path={"/temp"} element={<div>tempt</div>} />
           <Route path={"/about"} element={<div>about</div>} />
           <Route path={"/random"} element={<div>random</div>} />

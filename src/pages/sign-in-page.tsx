@@ -5,10 +5,13 @@ import { Link, useNavigate } from "react-router";
 import gitHubLogo from "@/assets/github-mark.svg";
 import { useSignInWithEmail } from "@/hooks/mutations/auth/use-sign-in-with-email";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/lib/const";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { mutate: signInWithEmail, isPending: isSignInWithEmailPending } =
@@ -17,6 +20,9 @@ export default function SignInPage() {
         toast.info("Login Success", {
           position: "top-center",
         });
+
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.me });
+
         navigate("/");
       },
       onError: (error) => {
