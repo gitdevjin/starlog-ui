@@ -30,5 +30,6 @@ export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
   }
 
   if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${res.statusText}`);
+
   return res.json();
 }

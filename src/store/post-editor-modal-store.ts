@@ -48,18 +48,18 @@ const postEditorModalStore = create(
   )
 );
 
-export const usePostModalState = () => {
+export const usePostModalEditorState = () => {
   const isOpen = postEditorModalStore((store) => store.isOpen);
   const type = postEditorModalStore((store) => store.type);
   return { isOpen, type };
 };
 
-export const useOpenCreatePostModal = () => {
-  const openCreate = postEditorModalStore((store) => store.actions.openCreate);
-  return openCreate;
+export const usePostModalActions = () => {
+  const actions = postEditorModalStore((store) => store.actions);
+  return actions;
 };
 
-export const useOpenEditPostModal = () => {
-  const openEdit = postEditorModalStore((store) => store.actions.openEdit);
-  return openEdit;
+export const usePostEditorModalStore = () => {
+  const store = postEditorModalStore();
+  return store as typeof store & State;
 };
