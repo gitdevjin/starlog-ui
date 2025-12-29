@@ -1,7 +1,4 @@
-import {
-  usePostEditorModalStore,
-  usePostModalEditorState,
-} from "@/store/post-editor-modal-store";
+import { usePlanetEditorModalStore } from "@/store/planet-editor-modal-store";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -9,17 +6,17 @@ import { Button } from "../ui/button";
 import { ImageIcon, XIcon } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import { useOpenAlertModal } from "@/store/alert-modal-store";
-import { useCreatePost } from "@/hooks/mutations/post/use-create-post";
+import { useCreatePlanet } from "@/hooks/mutations/planet/use-create-planet";
+import { useUpdatePlanet } from "@/hooks/mutations/planet/use-update-planet";
 import { toast } from "sonner";
-import { useUpdatePost } from "@/hooks/mutations/post/use-update-post";
 
 type Image = {
   file: File;
   previewUrl: string;
 };
 
-export default function PostEditorModal() {
-  const postEditorModalStore = usePostEditorModalStore();
+export default function PlanetEditorModal() {
+  const planetEditorModalStore = usePlanetEditorModalStore();
   const openAlertModal = useOpenAlertModal();
 
   const [content, setContent] = useState("");
@@ -28,27 +25,29 @@ export default function PostEditorModal() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { mutate: createPost, isPending: isCreatePostPending } = useCreatePost({
-    onSuccess: () => {
-      postEditorModalStore.actions.close();
-    },
-    onError: (error) => {
-      toast.error(error.message, {
-        position: "top-center",
-      });
-    },
-  });
+  const { mutate: createPlanet, isPending: isCreatePlanetPending } =
+    useCreatePlanet({
+      onSuccess: () => {
+        planetEditorModalStore.actions.close();
+      },
+      onError: (error) => {
+        toast.error(error.message, {
+          position: "top-center",
+        });
+      },
+    });
 
-  const { mutate: updatePost, isPending: isUpdatePostPending } = useUpdatePost({
-    onSuccess: () => {
-      postEditorModalStore.actions.close();
-    },
-    onError: (error) => {
-      toast.error(error.message, {
-        position: "top-center",
-      });
-    },
-  });
+  const { mutate: updatePlanet, isPending: isUpdatePlanetPending } =
+    useUpdatePlanet({
+      onSuccess: () => {
+        planetEditorModalStore.actions.close();
+      },
+      onError: (error) => {
+        toast.error(error.message, {
+          position: "top-center",
+        });
+      },
+    });
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -60,23 +59,23 @@ export default function PostEditorModal() {
 
   useEffect(() => {
     // Release Memory of Images
-    if (!postEditorModalStore.isOpen) {
+    if (!planetEditorModalStore.isOpen) {
       images.forEach((image) => {
         URL.revokeObjectURL(image.previewUrl);
       });
       return;
     }
 
-    if (postEditorModalStore.type === "Create") {
+    if (planetEditorModalStore.type === "Create") {
       setContent(""); // Reset Content when modal is closed
       setImages([]);
     } else {
-      setContent(postEditorModalStore.content);
+      setContent(planetEditorModalStore.content);
       setImages([]);
     }
 
     textareaRef?.current?.focus();
-  }, [postEditorModalStore.isOpen]);
+  }, [planetEditorModalStore.isOpen]);
 
   const handleSelectImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -108,42 +107,45 @@ export default function PostEditorModal() {
         title: "Are you sure you want to leave?",
         description: "You’ll lose any content you’ve been writing",
         onPositive: () => {
-          postEditorModalStore.actions.close();
+          planetEditorModalStore.actions.close();
         },
       });
 
       return;
     }
-    postEditorModalStore.actions.close();
+    planetEditorModalStore.actions.close();
   };
 
-  const handleSavePost = () => {
+  const handleSavePlanet = () => {
     if (content.trim() === "") return;
-    if (!postEditorModalStore.isOpen) return;
+    if (!planetEditorModalStore.isOpen) return;
 
-    if (postEditorModalStore.type === "Create") {
-      createPost({
+    if (planetEditorModalStore.type === "Create") {
+      createPlanet({
         content,
         images: images.map((image) => image.file),
       });
     } else {
-      if (content.trim() === postEditorModalStore.content) return;
-      updatePost({
-        postId: postEditorModalStore.postId,
+      if (content.trim() === planetEditorModalStore.content) return;
+      updatePlanet({
+        planetId: planetEditorModalStore.planetId,
         content,
       });
     }
   };
 
   return (
-    <Dialog open={postEditorModalStore.isOpen} onOpenChange={handleCloseModal}>
+    <Dialog
+      open={planetEditorModalStore.isOpen}
+      onOpenChange={handleCloseModal}
+    >
       <DialogContent className="max-h-[90vh] sm:max-w-lg">
-        <DialogTitle>{`${postEditorModalStore.type} Post`}</DialogTitle>
+        <DialogTitle>{`${planetEditorModalStore.type} Planet`}</DialogTitle>
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
           className="max-h-80 sm:min-h-50 min-h-30 bg-secondary focus:outline-none rounded-lg p-2"
-          placeholder="Share your story"
+          placeholder="Share your journey"
         />
         <input
           onChange={handleSelectImage}
@@ -154,11 +156,11 @@ export default function PostEditorModal() {
           hidden
         />
 
-        {postEditorModalStore.isOpen &&
-          postEditorModalStore.type === "Edit" && (
+        {planetEditorModalStore.isOpen &&
+          planetEditorModalStore.type === "Edit" && (
             <Carousel className="m-auto w-[88%] self-center">
               <CarouselContent>
-                {postEditorModalStore.imageUrls?.map((url) => (
+                {planetEditorModalStore.imageUrls?.map((url) => (
                   <CarouselItem key={url} className="basis-2/5">
                     <div className="relative">
                       <img
@@ -196,8 +198,8 @@ export default function PostEditorModal() {
             </CarouselContent>
           </Carousel>
         )}
-        {postEditorModalStore.isOpen &&
-          postEditorModalStore.type === "Create" && (
+        {planetEditorModalStore.isOpen &&
+          planetEditorModalStore.type === "Create" && (
             <Button
               onClick={() => {
                 fileInputRef.current?.click();
@@ -209,7 +211,7 @@ export default function PostEditorModal() {
               Add Image
             </Button>
           )}
-        <Button onClick={handleSavePost} className="cursor-pointer">
+        <Button onClick={handleSavePlanet} className="cursor-pointer">
           Save
         </Button>
       </DialogContent>

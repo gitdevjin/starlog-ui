@@ -7,9 +7,10 @@ export const QUERY_KEYS = {
   user: {
     me: ["user", "me"],
   },
-  post: {
-    list: ["post", "list"],
-    userList: (userId: string) => ["post", "userList", userId],
-    byId: (postId: number) => ["post", "byId", postId],
+  planet: {
+    universe: ["planet", "universe"],
+    orbit: ["planet", "orbit"],
+    userList: (userId: string) => ["planet", "userList", userId],
+    byId: (postId: number) => ["planet", "byId", postId],
   },
 };

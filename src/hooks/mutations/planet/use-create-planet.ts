@@ -1,16 +1,16 @@
-import { createPostWithImage } from "@/api/post";
+import { createPlanetWithImage } from "@/api/planet";
 import { QUERY_KEYS } from "@/lib/const";
 import type { MutationCallbacks } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function useCreatePost(callbacks?: MutationCallbacks) {
+export function useCreatePlanet(callbacks?: MutationCallbacks) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createPostWithImage,
+    mutationFn: createPlanetWithImage,
     onSuccess: () => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
       queryClient.resetQueries({
-        queryKey: QUERY_KEYS.post.list,
+        queryKey: QUERY_KEYS.planet.universe,
       });
     },
     onError: (error) => {

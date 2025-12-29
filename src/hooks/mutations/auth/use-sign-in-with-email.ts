@@ -11,5 +11,6 @@ export function useSignInWithEmail(callbacks?: MutationCallbacks) {
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);
     },
+    retry: false,
   });
 }

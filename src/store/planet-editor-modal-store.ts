@@ -4,7 +4,7 @@ import { devtools, combine } from "zustand/middleware";
 type EditMode = {
   isOpen: true;
   type: "Edit";
-  postId: number;
+  planetId: number;
   content: string;
   imageUrls: string[] | null;
 };
@@ -28,13 +28,12 @@ const initialState = {
 
 type State = OpenState | CloseState;
 
-const postEditorModalStore = create(
+const planetEditorModalStore = create(
   devtools(
     combine(initialState, (set) => ({
       actions: {
         openCreate: () => {
           set({ isOpen: true, type: "Create" });
-          console.log("OpenStore Run");
         },
         openEdit: () => {},
         close: () => {
@@ -43,23 +42,23 @@ const postEditorModalStore = create(
       },
     })),
     {
-      name: "PostEditorModalStore",
+      name: "PlanetEditorModalStore",
     }
   )
 );
 
-export const usePostModalEditorState = () => {
-  const isOpen = postEditorModalStore((store) => store.isOpen);
-  const type = postEditorModalStore((store) => store.type);
+export const usePlanetModalEditorState = () => {
+  const isOpen = planetEditorModalStore((store) => store.isOpen);
+  const type = planetEditorModalStore((store) => store.type);
   return { isOpen, type };
 };
 
-export const usePostModalActions = () => {
-  const actions = postEditorModalStore((store) => store.actions);
+export const usePlanetModalActions = () => {
+  const actions = planetEditorModalStore((store) => store.actions);
   return actions;
 };
 
-export const usePostEditorModalStore = () => {
-  const store = postEditorModalStore();
+export const usePlanetEditorModalStore = () => {
+  const store = planetEditorModalStore();
   return store as typeof store & State;
 };

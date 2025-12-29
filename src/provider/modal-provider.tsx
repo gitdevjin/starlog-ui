@@ -1,5 +1,5 @@
 import AlertModal from "@/components/modal/alert-modal";
-import PostEditorModal from "@/components/modal/post-editor-modal";
+import PlanetEditorModal from "@/components/modal/planet-editor-modal";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
@@ -8,7 +8,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
     <>
       {createPortal(
         <>
-          <PostEditorModal />
+          <PlanetEditorModal />
           <AlertModal />
         </>,
         document.getElementById("modal-root")!
