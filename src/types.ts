@@ -5,31 +5,34 @@ export type MutationCallbacks = {
   onSettled?: () => void;
 };
 
-export type UserEntity = {
+export type User = {
   id: string;
   email: string;
   password?: string;
   githubId?: string;
   createdAt: Date;
-  profile?: ProfileEntity;
+  stargate?: Stargate;
 };
 
-export type ProfileEntity = {
+export type Stargate = {
   id: number;
-  nickname?: string;
+  starname?: string;
   firstName?: string;
   lastName?: string;
   avatarUrl?: string;
   dob?: Date;
 };
 
-export type PostEntity = {
+export type Planet = {
   id: number;
   content: string;
   imageUrls: string[];
-  view: number;
-  likeCount: number;
-  authorId: string;
+  viewCount: number;
+  gravityCount: number;
+  moonCount: number;
   createdAt: Date;
-  user: UserEntity;
+  creatorId: string;
+  isGravityOn: boolean;
+  creator: User;
+  // gravities?: Gravity[];
 };
