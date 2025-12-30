@@ -1,4 +1,3 @@
-// import { useSession } from "@/store/session";
 import { useUser } from "@/store/user-store";
 import { Navigate, Outlet } from "react-router";
 

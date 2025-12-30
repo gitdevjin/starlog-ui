@@ -32,7 +32,16 @@ export type Planet = {
   moonCount: number;
   createdAt: Date;
   creatorId: string;
-  isGravityOn: boolean;
   creator: User;
-  // gravities?: Gravity[];
+  isGravityOn: boolean;
+  gravities?: Gravity[];
+};
+
+export type Gravity = {
+  id: number;
+  planetId: number;
+  planet: Planet;
+  createdAt: Date;
+  creatorId: string;
+  creator: User;
 };

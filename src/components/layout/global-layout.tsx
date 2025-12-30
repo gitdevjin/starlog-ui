@@ -1,9 +1,6 @@
 import { Outlet } from "react-router";
 import Header from "./header/header";
 import Footer from "../footer";
-import { useUserQuery } from "@/hooks/queries/use-user-query";
-import GlobalLoading from "../fallback/global-loading";
-import Fallback from "../fallback/fallback";
 
 export default function GlobalLayout() {
   return (

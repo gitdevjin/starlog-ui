@@ -1,6 +1,6 @@
 import { updatePlanet } from "@/api/planet";
 import { QUERY_KEYS } from "@/lib/const";
-import type { MutationCallbacks, PlanetEntity } from "@/types";
+import type { MutationCallbacks, Planet } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useUpdatePlanet(callbacks?: MutationCallbacks) {
@@ -10,7 +10,7 @@ export function useUpdatePlanet(callbacks?: MutationCallbacks) {
     onSuccess: (updatedPlanet) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
 
-      queryClient.setQueryData<PlanetEntity>(
+      queryClient.setQueryData<Planet>(
         QUERY_KEYS.planet.byId(updatedPlanet.id),
         (prevPost) => {
           if (!prevPost)

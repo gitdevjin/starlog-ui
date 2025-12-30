@@ -1,6 +1,6 @@
 import useTogglePlanetGravity from "@/hooks/mutations/planet/use-toggle-planet-gravity";
 
-import { AppleIcon, HeartIcon } from "lucide-react";
+import { AppleIcon } from "lucide-react";
 import { toast } from "sonner";
 
 export default function GravitatePlanetButton({
