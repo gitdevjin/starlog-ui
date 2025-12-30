@@ -5,6 +5,7 @@ import type { User } from "@/types";
 export async function FetchMe() {
   const user: User = await fetchWithRefresh(`${API_SERVER_URL}/user/me`, {
     method: "GET",
+    credentials: "include",
   });
 
   return user;
