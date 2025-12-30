@@ -1,9 +1,9 @@
-import type { UserEntity } from "@/types";
-import { create, useStore } from "zustand";
+import type { User } from "@/types";
+import { create } from "zustand";
 import { combine, devtools } from "zustand/middleware";
 
 type State = {
-  user: UserEntity | null;
+  user: User | null;
   isLoaded: boolean;
 };
 
@@ -16,7 +16,7 @@ const userStore = create(
   devtools(
     combine(initialState, (set) => ({
       actions: {
-        setUser: (user: UserEntity | null) => {
+        setUser: (user: User | null) => {
           set({ user: user });
         },
       },
