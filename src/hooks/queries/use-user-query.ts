@@ -19,6 +19,7 @@ export function useUserQuery() {
       }
     },
     staleTime: 60 * 5 * 1000,
+    refetchOnMount: false,
     retry: false,
   });
 }

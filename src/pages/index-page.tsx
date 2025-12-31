@@ -3,7 +3,6 @@ import Loading from "@/components/fallback/loading";
 import CreatePlanetButton from "@/components/planet/create-planet-button";
 import PlanetItem from "@/components/planet/planet-item";
 import { useInfinitePlanetsQuery } from "@/hooks/queries/use-infinite-planets";
-import { AppleIcon, BinocularsIcon, OrbitIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 

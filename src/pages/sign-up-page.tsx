@@ -32,39 +32,60 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex flex-col gap-8 sm:px-12 sm:py-6">
-      <div className="text-xl font-bold">Sign-Up Page</div>
-      <div className="flex flex-col gap-2">
-        <Input
-          disabled={isSignUpPending}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="py-6"
-          type="email"
-          placeholder="example@abcd.com"
-        />
-        <Input
-          disabled={isSignUpPending}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="py-6"
-          type="password"
-          placeholder="password"
-        />
-      </div>
-      <div>
-        <Button
-          disabled={isSignUpPending}
-          onClick={handleSignUpClick}
-          className="w-full"
-        >
-          Sign-Up
-        </Button>
-      </div>
-      <div>
-        <Link className="text-muted-foreground hover:underline" to={"/sign-in"}>
-          If you are already member? Sign-in
-        </Link>
+    <div className="bg-muted/40 flex flex-1 items-center justify-center px-4">
+      <div className="bg-background w-full max-w-md rounded-2xl p-8 shadow-lg">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold tracking-tight">
+            Create an account
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Join us and start exploring
+          </p>
+        </div>
+
+        {/* Form */}
+        <div className="flex flex-col gap-4">
+          <Input
+            disabled={isSignUpPending}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="Email address"
+            className="h-12"
+          />
+
+          <Input
+            disabled={isSignUpPending}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="Password"
+            className="h-12"
+          />
+        </div>
+
+        {/* Action */}
+        <div className="mt-6">
+          <Button
+            disabled={isSignUpPending}
+            onClick={handleSignUpClick}
+            className="h-12 w-full"
+          >
+            Create account
+          </Button>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-6 text-center text-sm">
+          <Link
+            className="text-muted-foreground hover:text-foreground hover:underline"
+            to="/sign-in"
+          >
+            Already have an account?{" "}
+            <span className="font-medium">Sign in</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

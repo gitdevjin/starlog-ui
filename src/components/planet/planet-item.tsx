@@ -80,7 +80,7 @@ export default function PlanetItem({
             </div>
           </Link>
         ) : (
-          <div className="wrap-break-word whitespace-pre-wrap">
+          <div className="wrap-break-word whitespace-pre-wrap text-xl">
             {planet.content}
           </div>
         )}
@@ -110,16 +110,15 @@ export default function PlanetItem({
           isGravityOn={planet.isGravityOn}
         />
         {/* 3-2. (Moon)Comment Button */}
-        {type === "LIST" && (
-          <Link
-            to={`/planet/${planet.id}`}
-            className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border p-1 px-3 text-sm"
-          >
-            <OrbitIcon className="h-4 w-4" />
-            <span>{planet.moonCount} Moons</span>
-          </Link>
-        )}
-        <div className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border p-1 px-3 text-sm">
+        <Link
+          to={`/planet/${planet.id}`}
+          className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border p-1 px-3 text-xs"
+        >
+          <OrbitIcon className="h-4 w-4" />
+          <span>{planet.moonCount} Moons</span>
+        </Link>
+
+        <div className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border p-1 px-3 text-xs">
           <BinocularsIcon className="h-4 w-4" />
           <span>{planet.viewCount} Views</span>
         </div>

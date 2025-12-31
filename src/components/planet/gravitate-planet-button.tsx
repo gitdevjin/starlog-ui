@@ -27,7 +27,7 @@ export default function GravitatePlanetButton({
   return (
     <div
       onClick={handleGravity}
-      className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border-1 p-2 px-4 text-sm"
+      className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border p-2 px-4 text-xs"
     >
       <AppleIcon
         className={`h-4 w-4 ${isGravityOn && "fill-foreground border-foreground"}`}

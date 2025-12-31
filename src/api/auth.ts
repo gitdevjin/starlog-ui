@@ -12,6 +12,7 @@ export async function signInWithEmail({
     method: "POST",
     headers: {
       authorization: `Basic ${base64string}`,
+      "ngrok-skip-browser-warning": "true",
     },
     credentials: "include",
   });
@@ -36,6 +37,7 @@ export async function signUp({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
     },
     body: JSON.stringify({
       email,

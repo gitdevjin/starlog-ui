@@ -45,3 +45,20 @@ export type Gravity = {
   creatorId: string;
   creator: User;
 };
+
+export type Moon = {
+  id: number;
+  content: string;
+  planetId: number;
+  planet: Planet;
+  createdAt: Date;
+  creatorId: string;
+  creator?: User;
+  parentMoonId?: number;
+  rootMoonId?: number;
+};
+
+export type NestedMoon = Moon & {
+  parentMoon?: Moon;
+  children: NestedMoon[];
+};

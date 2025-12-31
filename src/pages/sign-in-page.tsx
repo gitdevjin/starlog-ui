@@ -37,54 +37,74 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex flex-col gap-8 sm:px-12 sm:py-6">
-      <div className="text-xl font-bold">Sign-In Page</div>
-      <div className="flex flex-col gap-2">
-        <Input
-          disabled={isSignInWithEmailPending}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="py-6"
-          type="email"
-          placeholder="example@abcd.com"
-        />
-        <Input
-          disabled={isSignInWithEmailPending}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="py-6"
-          type="password"
-          placeholder="password"
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <Button
-          disabled={isSignInWithEmailPending}
-          onClick={handleSignIn}
-          className="w-full"
-        >
-          Sign-In
-        </Button>
-        <Button
-          disabled={isSignInWithEmailPending}
-          onClick={handleSignIn}
-          className="w-full"
-          variant={"outline"}
-        >
-          <img src={gitHubLogo} alt="" className="h-4 w-4" />
-          Sign-In with GitHub
-        </Button>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Link className="text-muted-foreground hover:underline" to={"/sign-up"}>
-          Not a member yet? Sign-up
-        </Link>
-        <Link
-          className="text-muted-foreground hover:underline"
-          to={"/forget-password"}
-        >
-          Forgot your password?
-        </Link>
+    <div className="flex flex-1 items-center justify-center bg-muted/40 px-4">
+      <div className="w-full max-w-md rounded-2xl bg-background p-8 shadow-lg">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            Sign in to your account
+          </p>
+        </div>
+
+        {/* Form */}
+        <div className="flex flex-col gap-4">
+          <Input
+            disabled={isSignInWithEmailPending}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="Email address"
+            className="h-12"
+          />
+
+          <Input
+            disabled={isSignInWithEmailPending}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="Password"
+            className="h-12"
+          />
+        </div>
+
+        {/* Actions */}
+        <div className="mt-6 flex flex-col gap-3">
+          <Button
+            disabled={isSignInWithEmailPending}
+            onClick={handleSignIn}
+            className="h-12 w-full"
+          >
+            Sign in
+          </Button>
+
+          <Button
+            disabled={isSignInWithEmailPending}
+            onClick={handleSignIn}
+            variant="outline"
+            className="flex h-12 w-full items-center justify-center gap-2"
+          >
+            <img src={gitHubLogo} alt="GitHub logo" className="h-4 w-4" />
+            Continue with GitHub
+          </Button>
+        </div>
+
+        {/* Footer links */}
+        <div className="mt-6 flex flex-col gap-2 text-center text-sm">
+          <Link
+            className="text-muted-foreground hover:text-foreground hover:underline"
+            to="/forget-password"
+          >
+            Forgot your password?
+          </Link>
+
+          <Link
+            className="text-muted-foreground hover:text-foreground hover:underline"
+            to="/sign-up"
+          >
+            Don’t have an account? <span className="font-medium">Sign up</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
