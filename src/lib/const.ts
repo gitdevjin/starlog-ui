@@ -1,7 +1,7 @@
-// export const API_SERVER_URL =
-//   "https://palindromically-gorgeous-sacha.ngrok-free.dev";
+export const API_SERVER_URL =
+  "https://palindromically-gorgeous-sacha.ngrok-free.dev";
 
-export const API_SERVER_URL = "http://localhost:3000";
+// export const API_SERVER_URL = "http://localhost:3000";
 
 export const QUERY_KEYS = {
   user: {
@@ -15,6 +15,6 @@ export const QUERY_KEYS = {
   },
   moon: {
     list: ["moon"],
-    planet: (planetId: number) => ["moon", "list", planetId],
+    planet: (planetId: number) => ["moon", "planet", planetId],
   },
 };

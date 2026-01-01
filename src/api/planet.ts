@@ -91,6 +91,17 @@ export async function updatePlanet({
   return planet;
 }
 
+export async function deletePlanet(planetId: number) {
+  const result: Planet = await fetchWithRefresh(
+    `${API_SERVER_URL}/planet/${planetId}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    }
+  );
+  return result;
+}
+
 export async function togglePlanetGravity(planetId: number) {
   const result = await fetchWithRefresh(
     `${API_SERVER_URL}/planet/${planetId}/gravity`,

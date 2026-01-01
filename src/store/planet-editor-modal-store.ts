@@ -21,12 +21,12 @@ type CloseState = {
   type: "None";
 };
 
+type State = OpenState | CloseState;
+
 const initialState = {
   isOpen: false,
   type: "None",
 } as State;
-
-type State = OpenState | CloseState;
 
 const planetEditorModalStore = create(
   devtools(
@@ -35,7 +35,9 @@ const planetEditorModalStore = create(
         openCreate: () => {
           set({ isOpen: true, type: "Create" });
         },
-        openEdit: () => {},
+        openEdit: (param: Omit<EditMode, "isOpen" | "type">) => {
+          set({ isOpen: true, type: "Edit", ...param });
+        },
         close: () => {
           set({ isOpen: false });
         },

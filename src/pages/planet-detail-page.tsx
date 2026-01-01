@@ -8,9 +8,9 @@ export default function PlanetDetailPage() {
   const planetId = params.planetId;
   if (!planetId) return <Navigate to={"/"} />;
   return (
-    <div>
+    <div className="mt-4 min-h-screen">
       <PlanetItem planetId={Number(planetId)} type={"DETAIL"} />
-      <div className="text-xl font-bold m-2">Moons</div>
+      <div className="m-2 text-xl font-bold">Moons</div>
       <MoonEditor planetId={Number(planetId)} type={"CREATE"} />
       <MoonList planetId={Number(planetId)} />
     </div>

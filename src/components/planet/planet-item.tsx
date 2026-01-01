@@ -12,6 +12,8 @@ import Fallback from "../fallback/fallback";
 import Loading from "../fallback/loading";
 import { formatTimeAgo } from "@/lib/time";
 import GravitatePlanetButton from "./gravitate-planet-button";
+import DeletePlanetButton from "./delete-planet-button";
+import EditPlanetButton from "./edit-planet-button";
 
 export default function PlanetItem({
   planetId,
@@ -58,13 +60,11 @@ export default function PlanetItem({
         </div>
 
         {/* 1-2. edit/delete button */}
-        <div className="text-muted-foreground flex text-sm gap-1">
+        <div className="text-muted-foreground flex gap-1 text-sm">
           {isMine && (
             <>
-              <div>edit</div>
-              {/* <EditPostButton {...planet} /> */}
-              <div>delete</div>
-              {/* <DeletePostButton id={planet.id} /> */}
+              <EditPlanetButton {...planet} />
+              <DeletePlanetButton id={planet.id} />
             </>
           )}
         </div>
@@ -75,12 +75,12 @@ export default function PlanetItem({
         {/* 2-1. content */}
         {type === "LIST" ? (
           <Link to={`/planet/${planet.id}`}>
-            <div className="line-clamp-2 wrap-break-word whitespace-pre-wrap">
+            <div className="line-clamp-2 px-2 wrap-break-word whitespace-pre-wrap">
               {planet.content}
             </div>
           </Link>
         ) : (
-          <div className="wrap-break-word whitespace-pre-wrap text-xl">
+          <div className="p-2 text-xl wrap-break-word whitespace-pre-wrap">
             {planet.content}
           </div>
         )}
