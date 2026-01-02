@@ -1,4 +1,4 @@
-import { AppleIcon, BinocularsIcon, OrbitIcon } from "lucide-react";
+import { BinocularsIcon, OrbitIcon } from "lucide-react";
 import defaultAvatar from "@/assets/default-avatar.jpg";
 import {
   Carousel,

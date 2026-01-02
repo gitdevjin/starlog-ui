@@ -1,8 +1,6 @@
 import { Link } from "react-router";
 import { SunIcon } from "lucide-react";
 import defaultAvatar from "@/assets/default-avatar.jpg";
-
-import logo from "@/assets/logo2.png";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function Header() {

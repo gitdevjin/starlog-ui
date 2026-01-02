@@ -7,18 +7,10 @@ import Header from "./header/header";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
-  useSidebar,
 } from "../ui/sidebar";
-import background from "@/assets/background.jpg";
+
 import { useState } from "react";
 
 export default function MemberOnlyLayout() {
