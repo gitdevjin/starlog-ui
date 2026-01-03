@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    // Build the backend URL
+    // Build backend URL
     const path = (req.query.path as string[]).join("/");
     const targetUrl = `${API_SERVER_URL}/${path}`;
 
@@ -24,14 +24,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       fetchBody = req as unknown as BodyInit; // FormData/file uploads
     }
 
-    // Send request to backend
+    // Forward request to backend
     const response = await fetch(targetUrl, {
       method: req.method,
       headers,
       body: fetchBody,
     });
 
-    // Forward Set-Cookie if backend set any
+    // Forward Set-Cookie from backend to browser if present
     const setCookie = response.headers.get("set-cookie");
     if (setCookie) {
       res.setHeader("Set-Cookie", setCookie);
