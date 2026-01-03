@@ -11,17 +11,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const headers: Record<string, string> = {};
     if (req.headers.cookie) headers.cookie = req.headers.cookie;
     if (req.headers["content-type"])
-      headers["content-type"] =
-        req.headers["content-type"] || "application/json";
+      headers["content-type"] = req.headers["content-type"];
 
-    // Determine body
+    // Determine request body
     let fetchBody: BodyInit | undefined;
     if (req.method === "GET" || req.method === "HEAD") {
       fetchBody = undefined;
     } else if (req.headers["content-type"]?.includes("application/json")) {
       fetchBody = JSON.stringify(req.body); // JSON requests
     } else {
-      fetchBody = req as unknown as BodyInit; // FormData/file uploads
+      // FormData/file uploads
+      fetchBody = req as unknown as BodyInit;
     }
 
     // Forward request to backend
@@ -31,13 +31,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       body: fetchBody,
     });
 
-    // Forward Set-Cookie from backend to browser if present
+    // Forward Set-Cookie if backend set any
     const setCookie = response.headers.get("set-cookie");
     if (setCookie) {
       res.setHeader("Set-Cookie", setCookie);
     }
 
-    // Forward response body
+    // Read response body safely
     const text = await response.text();
     const contentType = response.headers.get("content-type") || "";
 
@@ -45,12 +45,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         const data = JSON.parse(text);
         res.status(response.status).json(data);
-      } catch (err) {
-        // Fallback: send raw text if JSON parse fails
+      } catch {
+        // fallback: send raw text if JSON parse fails
         res.status(response.status).send(text);
       }
     } else {
-      // Send as plain text or empty response
+      // send as plain text or empty
       res.status(response.status).send(text);
     }
   } catch (err: any) {
