@@ -33,7 +33,7 @@ export async function signUp({
   email: string;
   password: string;
 }) {
-  const response = await fetch(`/api/auth/register/email`, {
+  const response = await fetch(`/api/proxy/auth/register/email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
