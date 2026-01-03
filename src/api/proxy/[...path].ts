@@ -38,12 +38,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Forward response body
+    const text = await response.text();
     const contentType = response.headers.get("content-type") || "";
-    if (contentType.includes("application/json")) {
-      const data = await response.json();
-      res.status(response.status).json(data);
+
+    if (contentType.includes("application/json") && text) {
+      try {
+        const data = JSON.parse(text);
+        res.status(response.status).json(data);
+      } catch (err) {
+        // Fallback: send raw text if JSON parse fails
+        res.status(response.status).send(text);
+      }
     } else {
-      const text = await response.text();
+      // Send as plain text or empty response
       res.status(response.status).send(text);
     }
   } catch (err: any) {
