@@ -8,7 +8,7 @@ export async function signInWithEmail({
   password: string;
 }) {
   const base64string = btoa(`${email}:${password}`);
-  const res = await fetch(`/api/proxy/auth/login/email`, {
+  const res = await fetch(`${API_SERVER_URL}/auth/login/email`, {
     method: "POST",
     headers: {
       authorization: `Basic ${base64string}`,
@@ -17,27 +17,13 @@ export async function signInWithEmail({
     credentials: "include",
   });
 
-  const text = await res.text();
-  let data;
-
-  try {
-    data = text ? JSON.parse(text) : {};
-  } catch {
-    data = text;
-  }
+  const data = await res.json();
 
   if (!res.ok) {
-    throw new Error(data?.message || data || "Unknown error");
+    throw new Error(data.message);
   }
 
   return data;
-  // const data = await res.json();
-
-  // if (!res.ok) {
-  //   throw new Error(data.message);
-  // }
-
-  // return data;
 }
 
 export async function signUp({
@@ -47,7 +33,7 @@ export async function signUp({
   email: string;
   password: string;
 }) {
-  const response = await fetch(`/api/proxy/auth/register/email`, {
+  const response = await fetch(`${API_SERVER_URL}/auth/register/email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

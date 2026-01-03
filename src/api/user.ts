@@ -3,7 +3,7 @@ import { fetchWithRefresh } from "./fetch-with-refresh";
 import type { User } from "@/types";
 
 export async function FetchMe() {
-  const user: User = await fetchWithRefresh(`/api/proxy/user/me`, {
+  const user: User = await fetchWithRefresh(`${API_SERVER_URL}/user/me`, {
     method: "GET",
     credentials: "include",
   });

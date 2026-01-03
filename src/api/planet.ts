@@ -23,7 +23,7 @@ export async function fetchPlanets(options: FetchPlanetsOptions) {
   }
 
   const planets: Planet[] = await fetchWithRefresh(
-    `/api/proxy/planet?${params.toString()}`,
+    `${API_SERVER_URL}/planet?${params.toString()}`,
     {
       method: "GET",
       credentials: "include",
@@ -35,7 +35,7 @@ export async function fetchPlanets(options: FetchPlanetsOptions) {
 
 export async function fetchPlanetById(planetId: number) {
   const planet: Planet = await fetchWithRefresh(
-    `/api/proxy/planet/${planetId}`,
+    `${API_SERVER_URL}/planet/${planetId}`,
     {
       method: "GET",
       credentials: "include",
