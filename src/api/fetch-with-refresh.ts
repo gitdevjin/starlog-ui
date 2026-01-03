@@ -16,7 +16,7 @@ export async function fetchWithRefresh(url: string, options: RequestInit = {}) {
     if (!refreshing) {
       // Start the refresh request only once
       refreshing = (async () => {
-        const refreshRes = await fetch(`${API_SERVER_URL}/auth/refresh`, {
+        const refreshRes = await fetch(`/api/auth/refresh`, {
           method: "POST",
           credentials: "include",
         });

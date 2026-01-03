@@ -8,7 +8,7 @@ export async function signInWithEmail({
   password: string;
 }) {
   const base64string = btoa(`${email}:${password}`);
-  const res = await fetch(`${API_SERVER_URL}/auth/login/email`, {
+  const res = await fetch(`/api/proxy/auth/login/email`, {
     method: "POST",
     headers: {
       authorization: `Basic ${base64string}`,
@@ -33,7 +33,7 @@ export async function signUp({
   email: string;
   password: string;
 }) {
-  const response = await fetch(`${API_SERVER_URL}/auth/register/email`, {
+  const response = await fetch(`/api/auth/register/email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
