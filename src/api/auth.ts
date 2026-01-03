@@ -17,6 +17,20 @@ export async function signInWithEmail({
     credentials: "include",
   });
 
+  const text = await res.text();
+  let data;
+
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = text;
+  }
+
+  if (!res.ok) {
+    throw new Error(data?.message || data || "Unknown error");
+  }
+
+  return data;
   // const data = await res.json();
 
   // if (!res.ok) {
