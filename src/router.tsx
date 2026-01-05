@@ -6,6 +6,7 @@ import SignUpPage from "./pages/sign-up-page";
 import GuestOnlyLayout from "./components/layout/guest-only-layout";
 import MemberOnlyLayout from "./components/layout/member-only-layout";
 import PlanetDetailPage from "./pages/planet-detail-page";
+import StargatePage from "./pages/stargate-page";
 
 export default function Router() {
   return (
@@ -19,7 +20,7 @@ export default function Router() {
         <Route element={<MemberOnlyLayout />}>
           <Route path={"/"} element={<IndexPage />} />
           <Route path="/planet/:planetId" element={<PlanetDetailPage />} />
-          <Route path={"/temp"} element={<div>tempt</div>} />
+          <Route path={"/stargate/:userId"} element={<StargatePage />} />
           <Route path={"/about"} element={<div>about</div>} />
           <Route path={"/random"} element={<div>random</div>} />
         </Route>

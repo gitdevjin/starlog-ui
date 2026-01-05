@@ -9,14 +9,14 @@ export function useUpdateMoon(callbacks?: MutationCallbacks) {
     mutationFn: updateMoon,
     onSuccess: (updatedMoon: Moon) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
-
+      console.log(updatedMoon);
       queryClient.setQueryData<Moon[]>(
         QUERY_KEYS.moon.planet(updatedMoon.planetId),
         (moons) => {
           if (!moons) throw new Error("No moons In Cache");
           return moons.map((moon) => {
             if (moon.id === updatedMoon.id) {
-              return { ...moon, updatedMoon };
+              return { ...moon, ...updatedMoon };
             }
             return moon;
           });

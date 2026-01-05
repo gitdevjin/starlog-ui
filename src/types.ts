@@ -19,6 +19,7 @@ export type Stargate = {
   starname?: string;
   firstName?: string;
   lastName?: string;
+  bio?: string;
   avatarUrl?: string;
   dob?: Date;
 };

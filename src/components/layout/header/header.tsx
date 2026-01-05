@@ -9,14 +9,9 @@ export default function Header() {
       <div className="m-auto flex h-full w-full max-w-200 items-center justify-between">
         <div className="flex gap-2">
           <SidebarTrigger className="animation-duration-[7s] animate-pulse" />
-          {/* <img
-            className="animation-duration-[7s] h-7 animate-pulse"
-            src={logo}
-            alt="Logo of StarLog"
-          /> */}
           <Link
             to={"/"}
-            className="flex flex-col bg-linear-to-r from-red-500 via-rose-400 to-rose-300 bg-clip-text text-lg font-bold text-transparent"
+            className="flex flex-col bg-linear-to-r from-red-500 via-rose-400 to-rose-300 bg-clip-text text-xl font-bold text-transparent"
           >
             StarLog
           </Link>

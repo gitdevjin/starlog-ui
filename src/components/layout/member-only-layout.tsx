@@ -12,6 +12,7 @@ import {
 } from "../ui/sidebar";
 
 import { useState } from "react";
+import SideMenu from "./header/side-menu";
 
 export default function MemberOnlyLayout() {
   const { data: user, isPending, error } = useUserQuery();
@@ -23,11 +24,7 @@ export default function MemberOnlyLayout() {
 
   return (
     <SidebarProvider>
-      <Sidebar className="">
-        <SidebarContent className="bg-background/80 z-0">
-          <SidebarMenuItem>hello</SidebarMenuItem>
-        </SidebarContent>
-      </Sidebar>
+      <SideMenu />
       <main className="w-full flex-3 justify-center px-1 pb-4">
         <div className={`mx-auto flex w-full max-w-200 flex-col px-6`}>
           <Header />

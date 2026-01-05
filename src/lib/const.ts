@@ -10,11 +10,14 @@ export const QUERY_KEYS = {
   planet: {
     universe: ["planet", "universe"],
     orbit: ["planet", "orbit"],
-    userList: (userId: string) => ["planet", "userList", userId],
+    byUser: (userId: string) => ["planet", "userList", userId],
     byId: (postId: number) => ["planet", "byId", postId],
   },
   moon: {
     list: ["moon"],
     planet: (planetId: number) => ["moon", "planet", planetId],
+  },
+  stargate: {
+    byId: (userId: string) => ["stargate", "byId", userId],
   },
 };

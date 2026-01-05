@@ -19,7 +19,7 @@ export function useInfinitePlanetsQuery({
         ? QUERY_KEYS.planet.universe
         : scope === "orbit"
           ? QUERY_KEYS.planet.orbit
-          : QUERY_KEYS.planet.userList(creatorId!),
+          : QUERY_KEYS.planet.byUser(creatorId!),
     queryFn: async ({ pageParam }) => {
       const from = pageParam * PAGE_SIZE;
       const to = from + PAGE_SIZE - 1;

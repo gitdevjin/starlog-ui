@@ -42,7 +42,7 @@ export default function PlanetItem({
       <div className="flex justify-between">
         {/* 1. User Info */}
         <div className="flex items-start gap-4">
-          <Link to={`profile/${planet.creatorId}`}>
+          <Link to={`/stargate/${planet.creatorId}`}>
             <img
               src={planet.creator.stargate?.avatarUrl || defaultAvatar}
               alt={`${planet.creator.stargate?.starname}'s Profile Image`}
@@ -50,9 +50,12 @@ export default function PlanetItem({
             />
           </Link>
           <div>
-            <div className="font-bold hover:underline">
+            <Link
+              to={`/stargate/${planet.creatorId}`}
+              className="font-bold hover:underline"
+            >
               {planet.creator.stargate?.starname}
-            </div>
+            </Link>
             <div className="text-muted-foreground text-sm">
               {formatTimeAgo(planet.createdAt)}
             </div>

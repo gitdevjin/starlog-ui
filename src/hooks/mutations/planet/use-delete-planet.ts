@@ -22,6 +22,10 @@ export function useDeletePlanet(callbacks?: MutationCallbacks) {
       queryClient.removeQueries({
         queryKey: QUERY_KEYS.moon.planet(deletedPlanet.id),
       });
+
+      queryClient.removeQueries({
+        queryKey: QUERY_KEYS.planet.byUser(deletedPlanet.creatorId),
+      });
     },
 
     onError: (error) => {
