@@ -1,6 +1,5 @@
 import { createPlanetWithImage } from "@/api/planet";
 import { QUERY_KEYS } from "@/lib/const";
-import { useUser } from "@/store/user-store";
 import type { MutationCallbacks } from "@/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

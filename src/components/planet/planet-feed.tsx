@@ -24,8 +24,8 @@ export default function PlanetFeed({
     }
   }, [inView]);
 
-  if (error) return <Fallback />;
   if (isPending) return <Loading />;
+  if (error) return <Fallback />;
 
   return (
     <div className="flex flex-col gap-10">

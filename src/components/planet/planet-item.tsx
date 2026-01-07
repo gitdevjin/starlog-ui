@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/carousel";
 import { Link } from "react-router";
 import { usePlanetByIdQuery } from "@/hooks/queries/use-planet-by-id";
-import { useUser } from "@/store/user-store";
 import Fallback from "../fallback/fallback";
 import Loading from "../fallback/loading";
 import { formatTimeAgo } from "@/lib/time";
 import GravitatePlanetButton from "./gravitate-planet-button";
 import DeletePlanetButton from "./delete-planet-button";
 import EditPlanetButton from "./edit-planet-button";
+import { useSession } from "@/hooks/queries/use-session";
 
 export default function PlanetItem({
   planetId,
@@ -22,7 +22,7 @@ export default function PlanetItem({
   planetId: number;
   type: "LIST" | "DETAIL";
 }) {
-  const user = useUser();
+  const { data: user } = useSession();
 
   const {
     data: planet,
@@ -31,9 +31,9 @@ export default function PlanetItem({
   } = usePlanetByIdQuery({ planetId, type });
 
   if (isPending) return <Loading />;
-  if (error || !user) return <Fallback />;
+  if (error || !planet) return <Fallback />;
 
-  const isMine = user.id === planet.creatorId;
+  const isMine = user?.id === planet.creatorId;
 
   return (
     <div

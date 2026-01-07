@@ -1,26 +1,16 @@
 import { Navigate, Outlet } from "react-router";
 import GlobalLoading from "../fallback/global-loading";
-import Fallback from "../fallback/fallback";
-import { useUserQuery } from "@/hooks/queries/use-user-query";
 import Footer from "../footer";
 import Header from "./header/header";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarMenuItem,
-  SidebarProvider,
-} from "../ui/sidebar";
-
-import { useState } from "react";
+import { SidebarProvider } from "../ui/sidebar";
 import SideMenu from "./header/side-menu";
+import { useSession } from "@/hooks/queries/use-session";
 
 export default function MemberOnlyLayout() {
-  const { data: user, isPending, error } = useUserQuery();
-  const [open, setOpen] = useState(false);
+  const { data: user, isPending } = useSession();
 
   if (isPending) return <GlobalLoading />;
-  if (error) return <Fallback />;
-  if (!user) return <Navigate to={"/sign-in"} replace={true} />;
+  if (!user) return <Navigate to="/sign-in" replace />;
 
   return (
     <SidebarProvider>

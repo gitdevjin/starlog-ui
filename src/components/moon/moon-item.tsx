@@ -1,6 +1,5 @@
 import { useDeleteMoon } from "@/hooks/mutations/moon/use-delete-moon";
 import { useOpenAlertModal } from "@/store/alert-modal-store";
-import { useUser } from "@/store/user-store";
 import type { NestedMoon } from "@/types";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -8,11 +7,13 @@ import { toast } from "sonner";
 import defaultAvatar from "@/assets/default-avatar.jpg";
 import MoonEditor from "./moon-editor";
 import { formatTimeAgo } from "@/lib/time";
+import { useSession } from "@/hooks/queries/use-session";
 
 export default function MoonItem(props: NestedMoon) {
-  const user = useUser();
+  const { data: user } = useSession();
 
   if (!user) throw new Error("Current User not found");
+
   const isMine = user.id === props.creatorId;
 
   const openAlertModal = useOpenAlertModal();

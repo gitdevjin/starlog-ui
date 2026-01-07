@@ -1,5 +1,4 @@
 import { Outlet } from "react-router";
-import Header from "./header/header";
 
 export default function GlobalLayout() {
   return (

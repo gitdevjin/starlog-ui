@@ -6,7 +6,7 @@ import gitHubLogo from "@/assets/github-mark.svg";
 import { useSignInWithEmail } from "@/hooks/mutations/auth/use-sign-in-with-email";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/lib/const";
+import { API_SERVER_URL, QUERY_KEYS } from "@/lib/const";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
@@ -16,12 +16,19 @@ export default function SignInPage() {
 
   const { mutate: signInWithEmail, isPending: isSignInWithEmailPending } =
     useSignInWithEmail({
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.info("Login Success", {
           position: "top-center",
         });
 
-        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.me });
+        const response = await fetch(`${API_SERVER_URL}/user/me`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const user = await response.json();
+
+        queryClient.setQueryData(QUERY_KEYS.user.me, user);
 
         navigate("/");
       },
@@ -37,8 +44,8 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center bg-muted/40 px-4">
-      <div className="w-full max-w-md rounded-2xl bg-background p-8 shadow-lg">
+    <div className="bg-muted/40 flex flex-1 items-center justify-center px-4">
+      <div className="bg-background w-full max-w-md rounded-2xl p-8 shadow-lg">
         {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
