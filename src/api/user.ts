@@ -8,7 +8,19 @@ export async function fetchMe(): Promise<User | null> {
   });
 
   if (res.status === 401) {
-    return null; // logged out is OK
+    await fetch(`${API_SERVER_URL}/auth/refresh`, {
+      method: "POSt",
+      credentials: "include",
+    });
+
+    const response = await fetch(`${API_SERVER_URL}/user/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!response.ok) return null;
+
+    return response.json();
   }
 
   if (!res.ok) {

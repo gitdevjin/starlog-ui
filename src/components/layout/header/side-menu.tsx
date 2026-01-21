@@ -18,9 +18,11 @@ import {
   SquareActivity,
   Telescope,
 } from "lucide-react";
-
 import logo from "@/assets/logo4.png";
-const items = [
+import { Link } from "react-router";
+import { useSession } from "@/hooks/queries/use-session";
+
+const getItems = (userId?: string) => [
   {
     title: "Universe",
     url: "/",
@@ -53,10 +55,9 @@ const items = [
   },
   {
     title: "Stargate",
-    url: "#",
+    url: userId ? `/stargate/${userId}` : "/sign-in",
     icon: DoorOpen,
   },
-
   {
     title: "Settings",
     url: "#",
@@ -64,6 +65,9 @@ const items = [
   },
 ];
 export default function SideMenu() {
+  const { data: user } = useSession();
+  const items = getItems(user?.id);
+
   return (
     <Sidebar>
       <SidebarContent className="p-6">
@@ -82,12 +86,12 @@ export default function SideMenu() {
                     asChild
                     className="min-h-11 [&>svg]:h-6 [&>svg]:w-6"
                   >
-                    <a href={item.url} className="flex items-center gap-4">
+                    <Link to={item.url} className="flex items-center gap-4">
                       <item.icon className="h-9 w-9" />
                       <span className="text-xl font-normal tracking-wider">
                         {item.title}
                       </span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

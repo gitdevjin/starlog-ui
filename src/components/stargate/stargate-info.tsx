@@ -5,6 +5,7 @@ import Fallback from "../fallback/fallback";
 import Loading from "../fallback/loading";
 import EditStargateButton from "./edit-stargate-button";
 import { useSession } from "@/hooks/queries/use-session";
+import defaultBackground from "@/assets/default-background.jpg";
 
 export default function StargateInfo({ userId }: { userId: string }) {
   const { data: currentUser } = useSession();
@@ -25,7 +26,7 @@ export default function StargateInfo({ userId }: { userId: string }) {
       {/* Cover Image */}
       <div className="relative h-48 w-full bg-gray-200">
         <img
-          src="/assets/planet.png"
+          src={userWithStargate.stargate?.coverUrl || defaultBackground}
           alt="Cover"
           className="h-full w-full object-cover"
         />
