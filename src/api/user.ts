@@ -11,11 +11,17 @@ export async function fetchMe(): Promise<User | null> {
     await fetch(`${API_SERVER_URL}/auth/refresh`, {
       method: "POSt",
       credentials: "include",
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     const response = await fetch(`${API_SERVER_URL}/user/me`, {
       method: "GET",
       credentials: "include",
+      headers: {
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     if (!response.ok) return null;
