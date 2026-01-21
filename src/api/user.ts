@@ -5,6 +5,9 @@ export async function fetchMe(): Promise<User | null> {
   const res = await fetch(`${API_SERVER_URL}/user/me`, {
     method: "GET",
     credentials: "include",
+    headers: {
+      "ngrok-skip-browser-warning": "true",
+    },
   });
 
   if (res.status === 401) {
