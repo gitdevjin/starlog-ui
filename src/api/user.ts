@@ -2,38 +2,59 @@ import { API_SERVER_URL } from "@/lib/const";
 import type { User } from "@/types";
 
 export async function fetchMe(): Promise<User | null> {
-  const res = await fetch(`${API_SERVER_URL}/user/me`, {
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
+
+  console.log("me page token");
+  console.log(accessToken);
+  if (!accessToken || !refreshToken) {
+    return null;
+  }
+
+  // 1️⃣ Try with access token
+  let res = await fetch(`${API_SERVER_URL}/user/me`, {
     method: "GET",
-    credentials: "include",
     headers: {
-      "ngrok-skip-browser-warning": "true",
+      Authorization: `Bearer ${accessToken}`,
     },
   });
 
+  // 2️⃣ Access token expired → refresh
   if (res.status === 401) {
-    await fetch(`${API_SERVER_URL}/auth/refresh`, {
-      method: "POSt",
-      credentials: "include",
+    const refreshRes = await fetch(`${API_SERVER_URL}/auth/refresh`, {
+      method: "POST",
       headers: {
-        "ngrok-skip-browser-warning": "true",
+        Authorization: `Bearer ${refreshToken}`,
       },
     });
 
-    const response = await fetch(`${API_SERVER_URL}/user/me`, {
+    if (!refreshRes.ok) {
+      // ❌ refresh failed → logout
+      // localStorage.removeItem("accessToken");
+      // localStorage.removeItem("refreshToken");
+      return null;
+    }
+
+    const { accessToken: newAccessToken } = await refreshRes.json();
+
+    if (!newAccessToken) {
+      return null;
+    }
+
+    // 3️⃣ Save new access token
+    localStorage.setItem("accessToken", newAccessToken);
+
+    // 4️⃣ Retry original request
+    res = await fetch(`${API_SERVER_URL}/user/me`, {
       method: "GET",
-      credentials: "include",
       headers: {
-        "ngrok-skip-browser-warning": "true",
+        Authorization: `Bearer ${newAccessToken}`,
       },
     });
-
-    if (!response.ok) return null;
-
-    return response.json();
   }
 
   if (!res.ok) {
-    throw new Error("Failed to fetch user");
+    return null;
   }
 
   return res.json();

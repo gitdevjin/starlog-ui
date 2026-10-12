@@ -26,7 +26,6 @@ export async function fetchPlanets(options: FetchPlanetsOptions) {
     `${API_SERVER_URL}/planet?${params.toString()}`,
     {
       method: "GET",
-      credentials: "include",
     }
   );
 
@@ -38,7 +37,6 @@ export async function fetchPlanetById(planetId: number) {
     `${API_SERVER_URL}/planet/${planetId}`,
     {
       method: "GET",
-      credentials: "include",
     }
   );
 
@@ -63,7 +61,6 @@ export async function createPlanetWithImage({
   const planet = await fetchWithRefresh(`${API_SERVER_URL}/planet`, {
     method: "POST",
     body: formData,
-    credentials: "include",
   });
 
   return planet;
@@ -84,7 +81,6 @@ export async function updatePlanet({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ content }),
-      credentials: "include",
     }
   );
 
@@ -96,7 +92,6 @@ export async function deletePlanet(planetId: number) {
     `${API_SERVER_URL}/planet/${planetId}`,
     {
       method: "DELETE",
-      credentials: "include",
     }
   );
   return result;
@@ -107,7 +102,6 @@ export async function togglePlanetGravity(planetId: number) {
     `${API_SERVER_URL}/planet/${planetId}/gravity`,
     {
       method: "POST",
-      credentials: "include",
     }
   );
 

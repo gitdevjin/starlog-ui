@@ -12,18 +12,29 @@ export async function signInWithEmail({
     method: "POST",
     headers: {
       authorization: `Basic ${base64string}`,
-      "ngrok-skip-browser-warning": "true",
     },
-    credentials: "include",
   });
 
   const data = await res.json();
 
   if (!res.ok) {
-    throw new Error(data.message);
+    throw new Error(data.message || "Login failed");
   }
 
-  return data;
+  const { accessToken, refreshToken, user } = data;
+
+  if (!accessToken || !refreshToken) {
+    throw new Error("Missing auth tokens");
+  }
+
+  console.log("window exists?", typeof window);
+
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
+  console.log("SAVED?", localStorage.getItem("accessToken"));
+  console.log(accessToken);
+
+  return user;
 }
 
 export async function signUp({
@@ -37,7 +48,6 @@ export async function signUp({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true",
     },
     body: JSON.stringify({
       email,

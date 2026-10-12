@@ -21,13 +21,20 @@ export default function SignInPage() {
           position: "top-center",
         });
 
+        const token = localStorage.getItem("accessToken");
+
+        console.log(token);
+
         const response = await fetch(`${API_SERVER_URL}/user/me`, {
           method: "GET",
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const user = await response.json();
 
+        console.log(user);
         queryClient.setQueryData(QUERY_KEYS.user.me, user);
 
         navigate("/");

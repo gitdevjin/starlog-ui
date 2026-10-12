@@ -4,7 +4,6 @@ import { fetchWithRefresh } from "./fetch-with-refresh";
 export async function fetchMoons(planetId: number) {
   const moons = fetchWithRefresh(`${API_SERVER_URL}/planet/${planetId}/moon`, {
     method: "GET",
-    credentials: "include",
   });
 
   return moons;
@@ -23,7 +22,6 @@ export async function createMoon({
     `${API_SERVER_URL}/planet/${planetId}/moon`,
     {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -43,7 +41,6 @@ export async function updateMoon({
 }) {
   const moon = await fetchWithRefresh(`${API_SERVER_URL}/moon/${moonId}`, {
     method: "PATCH",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -56,7 +53,6 @@ export async function updateMoon({
 export async function deleteMoon(moonId: number) {
   const moon = await fetchWithRefresh(`${API_SERVER_URL}/moon/${moonId}`, {
     method: "DELETE",
-    credentials: "include",
   });
 
   return moon;
